@@ -26,19 +26,27 @@ Calculate change in blood pressure and averages.
 # Change in blood pressure from pre treatment to post treatment for each subject.
 diff <- pre_trt - post_trt
 diff
+```
 
+```{r}
 # Average decrease in blood pressure across all patients.
 avg_diff <- mean(diff)
 avg_diff
+```
 
+```{r}
 # Which patients experienced a decrease in blood pressure after treatment.
 pos_index <- which(diff > 0)
 pos_index
+```
 
+```{r}
 # Get those patients blood pressure difference.
 positive_patients <- diff[pos_index]
 positive_patients
+```
 
+```{r}
 # Calculate the average decrease in blood pressure for positive patients.
 pos_avg_diff <- mean(positive_patients)
 pos_avg_diff
@@ -72,4 +80,37 @@ bp_df$low_bp
 ```{r}
 # Print the data frame nicely.
 knitr::kable(bp_df)
+```
+
+## Task 3: List Practice
+
+Add the placebo data from another experiment.
+
+```{r}
+# Create a data frame with the results of the experiment for the placebo group.
+subjects <- paste("Subject", 1:10, sep = "_")
+placebo_pre <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+placebo_diff <- placebo_pre - placebo_post
+placebo_df <- data.frame(patient = subjects,
+                         pre_bp = placebo_pre,
+                         post_bp = placebo_post,
+                         diff_bp = placebo_diff)
+placebo_df$low_bp <- placebo_df$post_bp < 120
+
+placebo_df
+```
+
+```{r}
+# Create a list with the treatment and placebo groups.
+experiment <- list(treatment = bp_df, 
+                   placebo = placebo_df)
+
+# Access the first list element using three different types of syntax
+experiment[1]
+experiment[[1]]
+experiment$treatment
+
+# Access the pre_bp column of the placebo data frame
+experiment$placebo$pre_bp
 ```
