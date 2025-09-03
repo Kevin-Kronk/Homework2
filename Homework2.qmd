@@ -43,3 +43,33 @@ positive_patients
 pos_avg_diff <- mean(positive_patients)
 pos_avg_diff
 ```
+
+## Task 2: Basic Data Frame Practice
+
+Create a data frame from the previous example.
+
+```{r}
+bp_df <- data.frame(patient = names(pre_trt), 
+                    pre_bp = pre_trt,
+                    post_bp = post_trt,
+                    diff_bp = diff,
+                    row.names = NULL)
+bp_df
+```
+
+```{r}
+# Return only rows of the data frame where the diff_bp is negative.
+neg_bp_df <- bp_df[bp_df$diff_bp < 0,]
+neg_bp_df
+```
+
+```{r}
+# Add a column for subjects that has true for post_bp less than 120.
+bp_df$low_bp <- bp_df$post_bp < 120
+bp_df$low_bp
+```
+
+```{r}
+# Print the data frame nicely.
+knitr::kable(bp_df)
+```
